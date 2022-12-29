@@ -1,83 +1,59 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: Unlicensed
 
 pragma solidity ^0.8.7;
 
 contract Zakat {
-    // Struct Xendit Invoice
-    struct XenditInvoice {
-        string external_id;
-        string name;
-        string email;
-        uint256 created; // timestamp unix
-        uint amount;
-        bool status;
-    } 
+    uint256 currentTime;
+    address owner;
 
-    // Struct Zakat Invoice
-    struct ZakatInvoice {
+    constructor() {
+        owner = msg.sender;
+        currentTime = block.timestamp;
+    }
+
+    struct ZakatIVC {
         address walletAddress;
         string zakatID;
         string name;
         string email;
-        string numphone;
+        string phoneNum;
         uint amount;
         uint256 date;
-    }
-    
-    XenditInvoice[] public xvoice;
-    ZakatInvoice[] public zvoice;
-
-    // Create Xendit Invoice
-    function storeXenditInvoice(string memory _extID, string memory _name, string memory _email, uint256 _created, uint _amount, bool _status) public {
-        xvoice.push(XenditInvoice(_extID, _name, _email, _created, _amount, _status));
+        bool statusPayment;
     }
 
-    // Create Zakat Invoice
-    function storeZakatInvoice(string memory _id, string memory _name, string memory _email, string memory _numphone, uint _amount, uint256 _date) public {
-        uint i = gIdXendit(_id);
-        require(xvoice[i].status == true, "Anda belum melakukan pembayaran");
-        zvoice.push(ZakatInvoice(msg.sender, _id, _name, _email, _numphone, _amount, _date));
+    ZakatIVC[] public zvoice;
+
+    function store(string memory _zakatID, string memory _name, string memory _email, string memory _phoneNum, uint _amount) public {
+        zvoice.push(ZakatIVC(msg.sender, _zakatID, _name, _email, _phoneNum, _amount, currentTime, true));
     }
 
-    // Check Xendit Status Payment
-    function statusPayment(string memory _extID) view public returns(bool){
-        uint i = gIdXendit(_extID);
-        if(xvoice[i].status == true){
-            return true;
-        } else {
-            return false;
+    function getSingle(string memory _zakatID) public view returns(address, string memory, string memory, string memory, string memory, uint, uint256, bool){
+        uint i = getIdx(_zakatID);
+        if(keccak256(abi.encodePacked(zvoice[i].zakatID)) == keccak256(abi.encodePacked(_zakatID))){
+            return(zvoice[i].walletAddress, zvoice[i].zakatID, zvoice[i].name, zvoice[i].email, zvoice[i].phoneNum, zvoice[i].amount, zvoice[i].date, zvoice[i].statusPayment);
         }
+        return(address(0x0), '', '', '', '', 0, 0, false);
     }
 
-    // Update Xendit Status Payment
-    function updateStatusPayment(string memory _extID) public returns(bool){
-        uint i = gIdXendit(_extID);
-        if(xvoice[i].status == false){
-            xvoice[i].status = true;
-            return true;
-        } else {
-            return false;
+    function getAll() public view returns(ZakatIVC[] memory){
+        ZakatIVC[] memory result = new ZakatIVC[](zvoice.length);
+        for(uint i=0;i<zvoice.length;i++){
+            result[i] = zvoice[i];
         }
+        return result;
     }
 
-    // Get Index Xendit Invoice
-    function gIdXendit(string memory _extID) view private returns(uint){
-        for(uint i=0; i<xvoice.length; i++){
-            if(keccak256(abi.encodePacked(xvoice[i].external_id)) == keccak256(abi.encodePacked(_extID))){
-                return i;
-            }
-        }
-        return xvoice.length;
-    } 
-
-    // Get Index Zakat Invoice
-    function gIdZakat(string memory _zakatID) view private returns(uint){
+    function getIdx(string memory _zakatID) view private returns(uint){
         for(uint i=0; i<zvoice.length; i++){
             if(keccak256(abi.encodePacked(zvoice[i].zakatID)) == keccak256(abi.encodePacked(_zakatID))){
                 return i;
             }
         }
         return zvoice.length;
-    } 
-
+    }
 }
+
+// ZAKAT-5215, JAJANG, jajang@gmail.com, 08123457789, 2500
+// ZAKAT-4123, MUSANG, musang@gmail.com, 08123457789, 5000
+// ZAKAT-7724, EKOR, ekor@gmail.com, 08123457789, 10000
