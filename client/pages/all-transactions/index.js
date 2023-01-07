@@ -4,19 +4,11 @@ import { Zakat } from '../abi/abi';
 import Web3 from 'web3';
 
 const web3 = new Web3(Web3.givenProvider);
-const contractAddress = '0xBB79C8570c50Afb838a58e8B6B2654b31840B3D5'; // Change this to deployed contract address
+const contractAddress = '0xB631e207F023605178EB4a45a79F670782Fa54DE'; // Change this to deployed contract address
 const zakatContract = new web3.eth.Contract(Zakat, contractAddress);
 
 const AllTransactions = () => {
   const [data, setData] = useState([]);
-
-  const convertUnixToDate = (unix) => {
-    const date = new Date(unix * 1000);
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    return `${day}/${month}/${year}`;
-  };
 
   const handleGetAllTransactions = async () => {
     const allData = await zakatContract.methods.getAll().call();
@@ -37,19 +29,7 @@ const AllTransactions = () => {
             Cari
           </button>
         </div>
-        {data.length > 0 &&
-          data.map((item) => (
-            <>
-              <p key={item.id}>
-                {item.walletAddress.slice(0, 9)}...
-                {item.walletAddress.slice(37, 42)}
-              </p>
-              <p>{item.name}</p>
-              <p>Rp{item.amount}</p>
-              <p>{convertUnixToDate(item.date)}</p>
-            </>
-          ))}
-        <Table />
+        <Table item={data} />
       </div>
     </div>
   );

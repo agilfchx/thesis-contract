@@ -54,9 +54,17 @@ const Footer = () => {
                   <li>
                     <Link
                       className="hover:text-slate-500 font-semibold block pb-2 text-sm"
-                      href="/check-transactions"
+                      href="/check-history"
                     >
-                      Check Transactions
+                      Check History
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="hover:text-slate-500 font-semibold block pb-2 text-sm"
+                      href="/check-invoice"
+                    >
+                      Check Invoice
                     </Link>
                   </li>
                 </ul>

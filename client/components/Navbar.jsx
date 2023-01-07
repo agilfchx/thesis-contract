@@ -75,14 +75,6 @@ const Navbar = () => {
           <ul className="flex flex-col p-4 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium ">
             <li>
               <Link
-                href="/"
-                className="py-2 pr-4 pl-3 md:p-0 text-gray-400 hover:text-white"
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
                 href="/payzakat"
                 className="py-2 pr-4 pl-3 md:p-0 text-gray-400 hover:text-white"
               >
@@ -99,10 +91,18 @@ const Navbar = () => {
             </li>
             <li>
               <Link
-                href="/check-transactions"
+                href="/check-history"
                 className="py-2 pr-4 pl-3 md:p-0 text-gray-400 hover:text-white"
               >
-                Check Transactions
+                Check History
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/check-invoice"
+                className="py-2 pr-4 pl-3 md:p-0 text-gray-400 hover:text-white"
+              >
+                Check Invoice
               </Link>
             </li>
           </ul>

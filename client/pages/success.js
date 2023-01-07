@@ -1,8 +1,6 @@
-import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-export default function Success({ data }) {
-  console.log(data);
+export default function Success() {
   return (
     <div className="flex flex-col items-center justify-center h-[35.1rem] py-2">
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
@@ -18,14 +16,4 @@ export default function Success({ data }) {
       </main>
     </div>
   );
-}
-
-export async function getServerSideProps() {
-  const res = await fetch('http://localhost:3000/api/callback');
-  const data = await res.json();
-  return {
-    props: {
-      data,
-    },
-  };
 }

@@ -1,14 +1,32 @@
-import TxInformation from '../../components/TxInformation';
+import { useState } from 'react';
+import TableHistory from '../../components/TableHistory';
+import { Zakat } from '../abi/abi';
+import Web3 from 'web3';
+
+const web3 = new Web3(Web3.givenProvider);
+const contractAddress = '0xB631e207F023605178EB4a45a79F670782Fa54DE'; // Change this to deployed contract address
+const zakatContract = new web3.eth.Contract(Zakat, contractAddress);
 
 export default function CheckTransactions() {
+  const [search, setSearch] = useState('');
+  const [zakatID, setZakatID] = useState([]);
+  const [date, setDate] = useState([]);
+  const [amount, setAmount] = useState([]);
+  const handleSearchHistory = async () => {
+    const allData = await zakatContract.methods.getHistory(search).call();
+    setZakatID(allData[0]);
+    setDate(allData[1]);
+    setAmount(allData[2]);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <div className="flex items-center justify-center w-full text-center m-4">
-        <h1 className="text-4xl font-bold">Check Transactions</h1>
+        <h1 className="text-4xl font-bold">Check History</h1>
       </div>
       <div className="flex flex-col items-center justify-center  max-w-7xl px-4 py-6 space-y-4 bg-white border border-gray-300 rounded-md shadow-md">
         <div className="flex flex-col items-center justify-center w-full space-y-2">
-          <form className="flex items-center">
+          <div className="flex justify-center">
             <label htmlFor="simple-search" className="sr-only">
               Search
             </label>
@@ -34,11 +52,12 @@ export default function CheckTransactions() {
                 className="border text-sm rounded-lg block w-[35rem] pl-10 p-2.5 bg-white border-gray-600 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Search Address"
                 required
+                onChange={(e) => setSearch(e.target.value)}
               />
             </div>
             <button
-              type="submit"
               className="p-2.5 ml-2 text-sm font-medium text-white  rounded-full border border-blue-700 focus:ring-4 focus:outline-none bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
+              onClick={handleSearchHistory}
             >
               <svg
                 className="w-5 h-5"
@@ -56,10 +75,10 @@ export default function CheckTransactions() {
               </svg>
               <span className="sr-only">Search</span>
             </button>
-          </form>
+          </div>
         </div>
       </div>
-      <TxInformation />
+      <TableHistory zakatID={zakatID} date={date} amount={amount} />
     </div>
   );
 }

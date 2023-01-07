@@ -1,7 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
-export default function Table() {
+export default function Table({ item }) {
+  const convertUnixToDate = (unix) => {
+    const date = new Date(unix * 1000);
+    const formattedDate = date.toLocaleDateString('en-US', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+    return formattedDate;
+  };
+
   return (
     <table className="w-full text-sm text-left">
       <thead className="text-xs uppercase bg-gray-800 text-white">
@@ -24,142 +34,42 @@ export default function Table() {
         </tr>
       </thead>
       <tbody>
-        <tr className="bg-white border border-gray-400">
-          <th scope="row" className="px-6 font-medium">
-            0x74D3JH2...FD5A
-          </th>
-          <td className="py-4 px-6">Mr. John Wick</td>
-          <td className="py-4 px-6">Rp500.000</td>
-          <td className="py-4 px-6">20 November 2022</td>
-          <td className="py-4 px-6">
-            <a href="#" className="font-bold text-blue-600 hover:underline">
-              <FontAwesomeIcon
-                icon={faDownload}
-                className="text-2xl"
-                width={20}
-              />
-            </a>
-          </td>
-        </tr>
-        <tr className="border-b bg-slate-300 border-gray-700">
-          <th scope="row" className="px-6 font-medium">
-            0x74D3JH2...FD5A
-          </th>
-          <td className="py-4 px-6">Mrs. Pevita Pearce</td>
-          <td className="py-4 px-6">Rp800.000</td>
-          <td className="py-4 px-6">20 November 2022</td>
-          <td className="py-4 px-6">
-            <a href="#" className="font-bold text-blue-600 hover:underline">
-              <FontAwesomeIcon
-                icon={faDownload}
-                className="text-2xl"
-                width={20}
-              />
-            </a>
-          </td>
-        </tr>
-        <tr className="bg-white border border-gray-400">
-          <th scope="row" className="px-6 font-medium">
-            0x74D3JH2...FD5A
-          </th>
-          <td className="py-4 px-6">Mr. John Wick</td>
-          <td className="py-4 px-6">Rp500.000</td>
-          <td className="py-4 px-6">20 November 2022</td>
-          <td className="py-4 px-6">
-            <a href="#" className="font-bold text-blue-600 hover:underline">
-              <FontAwesomeIcon
-                icon={faDownload}
-                className="text-2xl"
-                width={20}
-              />
-            </a>
-          </td>
-        </tr>
-        <tr className="border-b bg-slate-300 border-gray-700">
-          <th scope="row" className="px-6 font-medium">
-            0x74D3JH2...FD5A
-          </th>
-          <td className="py-4 px-6">Mrs. Pevita Pearce</td>
-          <td className="py-4 px-6">Rp800.000</td>
-          <td className="py-4 px-6">20 November 2022</td>
-          <td className="py-4 px-6">
-            <a href="#" className="font-bold text-blue-600 hover:underline">
-              <FontAwesomeIcon
-                icon={faDownload}
-                className="text-2xl"
-                width={20}
-              />
-            </a>
-          </td>
-        </tr>
-        <tr className="bg-white border border-gray-400">
-          <th scope="row" className="px-6 font-medium">
-            0x74D3JH2...FD5A
-          </th>
-          <td className="py-4 px-6">Mr. John Wick</td>
-          <td className="py-4 px-6">Rp500.000</td>
-          <td className="py-4 px-6">20 November 2022</td>
-          <td className="py-4 px-6">
-            <a href="#" className="font-bold text-blue-600 hover:underline">
-              <FontAwesomeIcon
-                icon={faDownload}
-                className="text-2xl"
-                width={20}
-              />
-            </a>
-          </td>
-        </tr>
-        <tr className="border-b bg-slate-300 border-gray-700">
-          <th scope="row" className="px-6 font-medium">
-            0x74D3JH2...FD5A
-          </th>
-          <td className="py-4 px-6">Mrs. Pevita Pearce</td>
-          <td className="py-4 px-6">Rp800.000</td>
-          <td className="py-4 px-6">20 November 2022</td>
-          <td className="py-4 px-6">
-            <a href="#" className="font-bold text-blue-600 hover:underline">
-              <FontAwesomeIcon
-                icon={faDownload}
-                className="text-2xl"
-                width={20}
-              />
-            </a>
-          </td>
-        </tr>
-        <tr className="bg-white border border-gray-400">
-          <th scope="row" className="px-6 font-medium">
-            0x74D3JH2...FD5A
-          </th>
-          <td className="py-4 px-6">Mr. John Wick</td>
-          <td className="py-4 px-6">Rp500.000</td>
-          <td className="py-4 px-6">20 November 2022</td>
-          <td className="py-4 px-6">
-            <a href="#" className="font-bold text-blue-600 hover:underline">
-              <FontAwesomeIcon
-                icon={faDownload}
-                className="text-2xl"
-                width={20}
-              />
-            </a>
-          </td>
-        </tr>
-        <tr className="border-b bg-slate-300 border-gray-700">
-          <th scope="row" className="px-6 font-medium">
-            0x74D3JH2...FD5A
-          </th>
-          <td className="py-4 px-6">Mrs. Pevita Pearce</td>
-          <td className="py-4 px-6">Rp800.000</td>
-          <td className="py-4 px-6">20 November 2022</td>
-          <td className="py-4 px-6">
-            <a href="#" className="font-bold text-blue-600 hover:underline">
-              <FontAwesomeIcon
-                icon={faDownload}
-                className="text-2xl"
-                width={20}
-              />
-            </a>
-          </td>
-        </tr>
+        {item.length > 0 &&
+          item.map((data, idx) => {
+            let rowClass = '';
+            if (idx % 2 === 0) {
+              rowClass = 'bg-white border border-gray-400';
+            } else {
+              rowClass = 'border-b bg-slate-300 border-gray-700';
+            }
+            return (
+              <tr className={rowClass}>
+                <th scope="row" className="px-6 font-medium">
+                  {data.walletAddress}
+                  {/* {data.walletAddress.slice(0, 9)}...
+                  {data.walletAddress.slice(37, 42)} */}
+                </th>
+                <td className="py-4 px-6">{data.name}</td>
+                <td className="py-4 px-6">
+                  Rp
+                  {data.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+                </td>
+                <td className="py-4 px-6">{convertUnixToDate(data.date)}</td>
+                <td className="py-4 px-6">
+                  <a
+                    href="#"
+                    className="font-bold text-blue-600 hover:underline"
+                  >
+                    <FontAwesomeIcon
+                      icon={faDownload}
+                      className="text-2xl"
+                      width={20}
+                    />
+                  </a>
+                </td>
+              </tr>
+            );
+          })}
       </tbody>
     </table>
   );

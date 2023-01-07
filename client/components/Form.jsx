@@ -5,7 +5,7 @@ import { Zakat } from '../pages/abi/abi';
 import Web3 from 'web3';
 
 const web3 = new Web3(Web3.givenProvider);
-const contractAddress = '0xBB79C8570c50Afb838a58e8B6B2654b31840B3D5'; // Change this to deployed contract address
+const contractAddress = '0xB631e207F023605178EB4a45a79F670782Fa54DE'; // Change this to deployed contract address
 const zakatContract = new web3.eth.Contract(Zakat, contractAddress);
 
 export default function Form() {
@@ -28,38 +28,25 @@ export default function Form() {
     const gas = await zakatContract.methods
       .store(extID, title + name, email, phone, zakatNominal)
       .estimateGas();
-    const signed = await web3.eth.accounts.signTransaction(
-      {
-        from: accounts[0],
-        to: contractAddress,
-        data: zakatContract.methods
-          .store(extID, title + name, email, phone, zakatNominal)
-          .encodeABI(),
-        gas,
-      },
-      '10472ff9c0e7b57bfef4eeb6e7c014a92f49cbdeb1c066db42cfb3cce955425d'
-    );
-    const txHash = await web3.eth.sendSignedTransaction(signed.rawTransaction);
-    console.log(txHash.transactionHash);
     const resp = await zakatContract.methods
       .store(extID, title + name, email, phone, zakatNominal)
       .send({ from: accounts[0], gas });
     console.log(resp);
 
-    // const pay = await fetch('/api/invoice', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     extID,
-    //     email,
-    //     description: title + name,
-    //     amount: zakatNominal,
-    //   }),
-    // });
-    // const res = await pay.json();
-    // window.location.href = res.invoice.invoice_url;
+    const pay = await fetch('/api/invoice', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        extID,
+        email,
+        description: title + name,
+        amount: zakatNominal,
+      }),
+    });
+    const res = await pay.json();
+    window.location.href = res.invoice.invoice_url;
   };
 
   useEffect(() => {
