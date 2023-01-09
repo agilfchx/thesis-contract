@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
-import { Zakat } from '../pages/abi/abi';
+import useContract from '../hooks/useContract';
 import Web3 from 'web3';
 
-const web3 = new Web3(Web3.givenProvider);
-const contractAddress = '0xB631e207F023605178EB4a45a79F670782Fa54DE'; // Change this to deployed contract address
-const zakatContract = new web3.eth.Contract(Zakat, contractAddress);
-
 export default function Form() {
+  const contract = useContract();
   const randomUID = Math.floor(Math.random() * 1000000000);
   const extID = 'ZAKAT-' + randomUID;
   const [nominal, setNominal] = useState(0);
@@ -24,29 +21,30 @@ export default function Form() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const web3 = new Web3(window.ethereum);
     const accounts = await web3.eth.getAccounts();
-    const gas = await zakatContract.methods
+    const gas = await contract.methods
       .store(extID, title + name, email, phone, zakatNominal)
       .estimateGas();
-    const resp = await zakatContract.methods
+    const resp = await contract.methods
       .store(extID, title + name, email, phone, zakatNominal)
       .send({ from: accounts[0], gas });
     console.log(resp);
 
-    const pay = await fetch('/api/invoice', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        extID,
-        email,
-        description: title + name,
-        amount: zakatNominal,
-      }),
-    });
-    const res = await pay.json();
-    window.location.href = res.invoice.invoice_url;
+    // const pay = await fetch('/api/invoice', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     extID,
+    //     email,
+    //     description: title + name,
+    //     amount: zakatNominal,
+    //   }),
+    // });
+    // const res = await pay.json();
+    // window.location.href = res.invoice.invoice_url;
   };
 
   useEffect(() => {

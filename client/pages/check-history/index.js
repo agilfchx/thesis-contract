@@ -1,19 +1,15 @@
 import { useState } from 'react';
 import TableHistory from '../../components/TableHistory';
-import { Zakat } from '../abi/abi';
-import Web3 from 'web3';
-
-const web3 = new Web3(Web3.givenProvider);
-const contractAddress = '0xB631e207F023605178EB4a45a79F670782Fa54DE'; // Change this to deployed contract address
-const zakatContract = new web3.eth.Contract(Zakat, contractAddress);
+import useContract from '../../hooks/useContract';
 
 export default function CheckTransactions() {
+  const contract = useContract();
   const [search, setSearch] = useState('');
   const [zakatID, setZakatID] = useState([]);
   const [date, setDate] = useState([]);
   const [amount, setAmount] = useState([]);
   const handleSearchHistory = async () => {
-    const allData = await zakatContract.methods.getHistory(search).call();
+    const allData = await contract.methods.getHistory(search).call();
     setZakatID(allData[0]);
     setDate(allData[1]);
     setAmount(allData[2]);

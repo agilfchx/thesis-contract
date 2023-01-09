@@ -5,10 +5,6 @@ import ConnectMetamask from '../../components/ConnectMetamask';
 const PayZakat = () => {
   const [isConnected, setIsConnected] = useState(false);
 
-  const handleSubmit = () => {
-    console.log('submit');
-  };
-
   useEffect(() => {
     if (window.ethereum) {
       try {
