@@ -16,7 +16,7 @@ const Hero = () => {
         <div className="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
           <Link
             href="/payzakat"
-            className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center  focus:ring-gray-600 bg-gray-800 border-gray-700 text-white hover:bg-gray-700 rounded-lg focus:ring-4 focus:ring-primary-300 "
+            className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center  focus:ring-gray-600 bg-gray-800 border-gray-700 text-white hover:bg-gray-700 rounded-lg focus:ring-primary-300 "
           >
             Pay Zakat Now
             <svg
@@ -34,7 +34,7 @@ const Hero = () => {
           </Link>
           <Link
             href="/all-transactions"
-            className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+            className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

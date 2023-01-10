@@ -28,7 +28,7 @@ export default function ConnectMetamask() {
       />
       <h1 className="text-2xl font-bold mt-10">Connect Metamask to Continue</h1>
       <button
-        className="focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus:ring-gray-600 bg-gray-800 border-gray-700 text-white hover:bg-gray-700 mt-8 mb-[4.6rem]"
+        className="focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus:ring-gray-600 bg-gray-800 border-gray-700 text-white hover:bg-gray-700 mt-8 mb-[4.6rem]"
         onClick={connectMetamask}
       >
         Connect

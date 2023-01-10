@@ -25,7 +25,7 @@ const Navbar = () => {
     return (
       <button
         type="button"
-        className="focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus:ring-gray-600 bg-gray-800 border-gray-700 text-white hover:bg-gray-700 mr-2 mb-2"
+        className="focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus:ring-gray-600 bg-gray-800 border-gray-700 text-white hover:bg-gray-700 mr-2 mb-2"
         onClick={connectMetamask}
       >
         <Image
@@ -64,7 +64,7 @@ const Navbar = () => {
         </div>
         <div className="flex md:order-2">
           {accountAddress ? (
-            <p className="focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus:ring-gray-600 bg-gray-800 border-gray-700 text-white hover:bg-gray-700 mr-2 mb-2">
+            <p className="focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus:ring-gray-600 bg-gray-800 border-gray-700 text-white hover:bg-gray-700 mr-2 mb-2">
               {accountAddress.slice(0, 16)}...{accountAddress.slice(37, 42)}
             </p>
           ) : (

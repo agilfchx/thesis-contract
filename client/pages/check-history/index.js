@@ -52,7 +52,7 @@ export default function CheckTransactions() {
               />
             </div>
             <button
-              className="p-2.5 ml-2 text-sm font-medium text-white  rounded-full border border-blue-700 focus:ring-4 focus:outline-none bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
+              className="p-2.5 ml-2 text-sm font-medium border focus:ring-gray-600 bg-gray-800 border-gray-700 text-white hover:bg-gray-700 rounded-full focus:ring-primary-300 "
               onClick={handleSearchHistory}
             >
               <svg
