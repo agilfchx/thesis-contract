@@ -8,11 +8,13 @@ export default function CheckTransactions() {
   const [zakatID, setZakatID] = useState([]);
   const [date, setDate] = useState([]);
   const [amount, setAmount] = useState([]);
+  const [hash, setHash] = useState([]);
   const handleSearchHistory = async () => {
     const allData = await contract.methods.getHistory(search).call();
     setZakatID(allData[0]);
     setDate(allData[1]);
     setAmount(allData[2]);
+    setHash(allData[3]);
   };
 
   return (
@@ -74,7 +76,7 @@ export default function CheckTransactions() {
           </div>
         </div>
       </div>
-      <TableHistory zakatID={zakatID} date={date} amount={amount} />
+      <TableHistory zakatID={zakatID} date={date} amount={amount} hash={hash} />
     </div>
   );
 }

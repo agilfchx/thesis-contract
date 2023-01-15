@@ -54,6 +54,11 @@ export const Zakat = [
         name: 'statusPayment',
         type: 'bool',
       },
+      {
+        internalType: 'string',
+        name: 'ipfsHash',
+        type: 'string',
+      },
     ],
     stateMutability: 'view',
     type: 'function',
@@ -86,11 +91,36 @@ export const Zakat = [
         name: '_amount',
         type: 'uint256',
       },
+      {
+        internalType: 'string',
+        name: '_ipfsHash',
+        type: 'string',
+      },
     ],
     name: 'store',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'string',
+        name: '_ipfsHash',
+        type: 'string',
+      },
+    ],
+    name: 'verifyFile',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+    constant: true,
   },
   {
     inputs: [],
@@ -138,6 +168,11 @@ export const Zakat = [
             name: 'statusPayment',
             type: 'bool',
           },
+          {
+            internalType: 'string',
+            name: 'ipfsHash',
+            type: 'string',
+          },
         ],
         internalType: 'struct Zakat.ZakatIVC[]',
         name: '',
@@ -172,6 +207,11 @@ export const Zakat = [
         internalType: 'uint256[]',
         name: '',
         type: 'uint256[]',
+      },
+      {
+        internalType: 'string[]',
+        name: '',
+        type: 'string[]',
       },
     ],
     stateMutability: 'view',

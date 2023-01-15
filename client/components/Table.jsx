@@ -57,7 +57,8 @@ export default function Table({ item }) {
                 <td className="py-4 px-6">{convertUnixToDate(data.date)}</td>
                 <td className="py-4 px-6">
                   <a
-                    href="#"
+                    href={`https://zakatpayment.infura-ipfs.io/ipfs/${data.ipfsHash}`}
+                    target="_blank"
                     className="font-bold text-blue-600 hover:underline"
                   >
                     <FontAwesomeIcon

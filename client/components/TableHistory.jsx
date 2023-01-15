@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
-export default function TableHistory({ zakatID, date, amount }) {
+export default function TableHistory({ zakatID, date, amount, hash }) {
   const convertUnixToDate = (unix) => {
     const date = new Date(unix * 1000);
     const formattedDate = date.toLocaleDateString('en-US', {
@@ -53,7 +53,8 @@ export default function TableHistory({ zakatID, date, amount }) {
                   </td>
                   <td className="py-4 px-6">
                     <a
-                      href="#"
+                      href={`https://zakatpayment.infura-ipfs.io/ipfs/${hash[idx]}`}
+                      target="_blank"
                       className="font-bold text-blue-600 hover:underline"
                     >
                       <FontAwesomeIcon

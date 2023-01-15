@@ -6,7 +6,7 @@ import Web3 from 'web3';
 
 export default function Form() {
   const contract = useContract();
-  const randomUID = Math.floor(Math.random() * 1000000000);
+  const randomUID = Math.floor(Math.random() * 10000);
   const extID = 'ZAKAT-' + randomUID;
   const [nominal, setNominal] = useState(0);
   const [zakatNominal, setZakatNominal] = useState(0);
@@ -21,13 +21,30 @@ export default function Form() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const pdf = await fetch('/api/pdf', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: extID,
+        name: title + name,
+        email,
+        phoneNumber: phone,
+        amount: zakatNominal,
+      }),
+    });
+    const res = await pdf.json();
+    const hash = res.path;
+
     const web3 = new Web3(window.ethereum);
     const accounts = await web3.eth.getAccounts();
     const gas = await contract.methods
-      .store(extID, title + name, email, phone, zakatNominal)
+      .store(extID, title + name, email, phone, zakatNominal, hash)
       .estimateGas();
     const resp = await contract.methods
-      .store(extID, title + name, email, phone, zakatNominal)
+      .store(extID, title + name, email, phone, zakatNominal, hash)
       .send({ from: accounts[0], gas });
     console.log(resp);
 
