@@ -105,6 +105,26 @@ export const Zakat = [
   {
     inputs: [
       {
+        internalType: 'address',
+        name: '_walletAddress',
+        type: 'address',
+      },
+    ],
+    name: 'checkPayment',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+    constant: true,
+  },
+  {
+    inputs: [
+      {
         internalType: 'string',
         name: '_ipfsHash',
         type: 'string',

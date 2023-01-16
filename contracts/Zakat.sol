@@ -25,25 +25,24 @@ contract Zakat {
     ZakatIVC[] public zvoice;
 
     function store(string memory _zakatID, string memory _name, string memory _email, string memory _phoneNum, uint _amount, string memory _ipfsHash) public {
-        uint lastPayment = checkLastPaymentDate();
-        uint oneMonthInSeconds = 2592000; // 30 d x 24 h x 60 m x 60 s
-        currentTime = block.timestamp;
-        require(currentTime - lastPayment >= oneMonthInSeconds, "Tunggu bulan berikutnya");
-        zvoice.push(ZakatIVC(msg.sender, _zakatID, _name, _email, _phoneNum, _amount, currentTime, true, _ipfsHash));
+        bool status = checkPayment(msg.sender);
+        require(status == true, "Tunggu bulan berikutnya");
+        zvoice.push(ZakatIVC(msg.sender, _zakatID, _name, _email, _phoneNum, _amount, block.timestamp, true, _ipfsHash));
 
     }
 
-    function checkLastPaymentDate() private view returns (uint){
+    function checkPayment(address _walletAddress) public view returns(bool){
         uint lastPayment=0;
+        uint oneMonthInSeconds = 2592000; // 30 d x 24 h x 60 m x 60 s
         for (uint i=0; i<zvoice.length; i++){
-            if(zvoice[i].walletAddress == msg.sender){
+            if(zvoice[i].walletAddress == _walletAddress){
                 if(zvoice[i].date > lastPayment){
                     lastPayment = zvoice[i].date;
                 }
             }
         }
-        return lastPayment;
-    }
+        return (block.timestamp - lastPayment >= oneMonthInSeconds);
+    } 
 
     function verifyFile(string memory _ipfsHash) public view returns (bool){
         bool valid = false;

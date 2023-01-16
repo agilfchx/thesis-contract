@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
+import Modal from '../components/ModalError';
 import useContract from '../hooks/useContract';
 import Web3 from 'web3';
 
 export default function Form() {
   const contract = useContract();
+  const [modal, setModal] = useState(false);
   const randomUID = Math.floor(Math.random() * 10000);
   const extID = 'ZAKAT-' + randomUID;
   const [nominal, setNominal] = useState(0);
@@ -21,47 +23,53 @@ export default function Form() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const pdf = await fetch('/api/pdf', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        id: extID,
-        name: title + name,
-        email,
-        phoneNumber: phone,
-        amount: zakatNominal,
-      }),
-    });
-    const res = await pdf.json();
-    const hash = res.path;
-
     const web3 = new Web3(window.ethereum);
     const accounts = await web3.eth.getAccounts();
-    const gas = await contract.methods
-      .store(extID, title + name, email, phone, zakatNominal, hash)
-      .estimateGas();
-    const resp = await contract.methods
-      .store(extID, title + name, email, phone, zakatNominal, hash)
-      .send({ from: accounts[0], gas });
-    console.log(resp);
+    const address = web3.utils.toChecksumAddress(accounts[0]);
+    const check = await contract.methods.checkPayment(address).call();
 
-    // const pay = await fetch('/api/invoice', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     extID,
-    //     email,
-    //     description: title + name,
-    //     amount: zakatNominal,
-    //   }),
-    // });
-    // const res = await pay.json();
-    // window.location.href = res.invoice.invoice_url;
+    if (check) {
+      const pdf = await fetch('/api/pdf', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: extID,
+          name: title + name,
+          email,
+          phoneNumber: phone,
+          amount: zakatNominal,
+        }),
+      });
+      const res = await pdf.json();
+      const hash = res.path;
+
+      const gas = await contract.methods
+        .store(extID, title + name, email, phone, zakatNominal, hash)
+        .estimateGas();
+      const resp = await contract.methods
+        .store(extID, title + name, email, phone, zakatNominal, hash)
+        .send({ from: accounts[0], gas });
+      console.log(resp);
+
+      // const pay = await fetch('/api/invoice', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({
+      //     extID,
+      //     email,
+      //     description: title + name,
+      //     amount: zakatNominal,
+      //   }),
+      // });
+      // const res = await pay.json();
+      // window.location.href = res.invoice.invoice_url;
+    } else {
+      setModal(true);
+    }
   };
 
   useEffect(() => {
@@ -235,6 +243,7 @@ export default function Form() {
             </button>
           </div>
         </form>
+        <Modal show={modal} onClose={() => setModal(false)} />
       </div>
     </>
   );

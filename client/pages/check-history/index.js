@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import TableHistory from '../../components/TableHistory';
 import useContract from '../../hooks/useContract';
+import Web3 from 'web3';
 
 export default function CheckTransactions() {
   const contract = useContract();
@@ -9,8 +10,11 @@ export default function CheckTransactions() {
   const [date, setDate] = useState([]);
   const [amount, setAmount] = useState([]);
   const [hash, setHash] = useState([]);
+
   const handleSearchHistory = async () => {
-    const allData = await contract.methods.getHistory(search).call();
+    const web3 = new Web3(Web3.givenProvider);
+    const address = web3.utils.toChecksumAddress(search);
+    const allData = await contract.methods.getHistory(address).call();
     setZakatID(allData[0]);
     setDate(allData[1]);
     setAmount(allData[2]);

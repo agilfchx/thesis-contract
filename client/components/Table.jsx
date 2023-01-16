@@ -43,7 +43,7 @@ export default function Table({ item }) {
               rowClass = 'border-b bg-slate-300 border-gray-700';
             }
             return (
-              <tr className={rowClass}>
+              <tr className={rowClass} key={idx}>
                 <th scope="row" className="px-6 font-medium">
                   {data.walletAddress}
                   {/* {data.walletAddress.slice(0, 9)}...

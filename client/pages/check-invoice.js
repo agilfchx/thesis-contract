@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import Modal from '../components/ModalValidation';
 import { create } from 'ipfs-http-client';
 import useContract from '../hooks/useContract';
 const projectID = '2KAAMkXjgdYr2LJeBvpKHY2FPWA';
@@ -13,13 +15,19 @@ const ipfs = create({
 
 export default function CheckInvoice() {
   const contract = useContract();
+  const [modal, setModal] = useState(false);
+  const [ipfsHash, setIPFSHash] = useState('');
+  const [valid, setValid] = useState(false);
   const verifyInvoice = async () => {
     const invoiceFile = document.getElementById('invoiceFile');
     const file = invoiceFile.files[0];
     const fileAdded = await ipfs.add(file);
-    const fileHash = fileAdded.path;
-    const verify = await contract.methods.verifyFile(fileHash).call();
-    verify ? alert('Invoice is valid') : alert('Invoice is not valid');
+    const hash = fileAdded.path;
+    const verified = await contract.methods.verifyFile(hash).call();
+    setModal(true);
+    hash ? setIPFSHash(hash) : setIPFSHash('');
+    verified ? setValid(true) : setValid(false);
+    console.log(hash);
   };
 
   return (
@@ -54,6 +62,12 @@ export default function CheckInvoice() {
               ></path>
             </svg>
           </button>
+          <Modal
+            show={modal}
+            onClose={() => setModal(false)}
+            hash={ipfsHash}
+            valid={valid}
+          />
         </div>
       </div>
     </div>

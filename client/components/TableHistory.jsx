@@ -13,33 +13,33 @@ export default function TableHistory({ zakatID, date, amount, hash }) {
   };
   return (
     <div className="overflow-x-auto mt-8">
-      <table className="w-full text-sm text-left">
-        <thead className="text-xs uppercase bg-gray-800 text-white">
-          <tr>
-            <th scope="col" className="py-3 px-6">
-              Zakat ID
-            </th>
-            <th scope="col" className="py-3 px-6">
-              Date
-            </th>
-            <th scope="col" className="py-3 px-6">
-              Nominal
-            </th>
-            <th scope="col" className="py-3 px-6">
-              Invoice
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {zakatID.length > 0 &&
-            zakatID.map((data, idx) => {
-              let rowClass = '';
-              if (idx % 2 === 0) {
-                rowClass = 'bg-white border border-gray-400';
-              } else {
-                rowClass = 'border-b bg-slate-300 border-gray-700';
-              }
-              return (
+      {zakatID.length > 0 &&
+        zakatID.map((data, idx) => {
+          let rowClass = '';
+          if (idx % 2 === 0) {
+            rowClass = 'bg-white border border-gray-400';
+          } else {
+            rowClass = 'border-b bg-slate-300 border-gray-700';
+          }
+          return (
+            <table className="w-full text-sm text-left" key={idx}>
+              <thead className="text-xs uppercase bg-gray-800 text-white">
+                <tr>
+                  <th scope="col" className="py-3 px-6">
+                    Zakat ID
+                  </th>
+                  <th scope="col" className="py-3 px-6">
+                    Date
+                  </th>
+                  <th scope="col" className="py-3 px-6">
+                    Nominal
+                  </th>
+                  <th scope="col" className="py-3 px-6">
+                    Invoice
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
                 <tr className={rowClass}>
                   <th scope="row" className="px-6 font-medium">
                     {data}
@@ -64,10 +64,10 @@ export default function TableHistory({ zakatID, date, amount, hash }) {
                     </a>
                   </td>
                 </tr>
-              );
-            })}
-        </tbody>
-      </table>
+              </tbody>
+            </table>
+          );
+        })}
     </div>
   );
 }
