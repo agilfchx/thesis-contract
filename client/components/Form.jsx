@@ -78,7 +78,7 @@ export default function Form() {
 
   return (
     <>
-      <h1 className="text-4xl font-bold mt-8">Pay Zakat</h1>
+      <h1 className="mt-8 text-4xl font-bold">Pay Zakat</h1>
       <div className="m-8">
         <form className="flex flex-col items-center justify-center w-full h-full">
           <div>
@@ -89,7 +89,7 @@ export default function Form() {
               Income
             </label>
             <div className="flex">
-              <span className="inline-flex items-center px-3 text-sm  rounded-l-md border border-r-0 bg-gray-300 border-black font-bold">
+              <span className="inline-flex items-center px-3 text-sm font-bold bg-gray-300 border border-r-0 border-black rounded-l-md">
                 Rp.
               </span>
               <input
@@ -102,13 +102,13 @@ export default function Form() {
             </div>
             <div>
               <label
-                className="block mb-2 text-sm font-medium text-gray-900 pt-2"
+                className="block pt-2 mb-2 text-sm font-medium text-gray-900"
                 htmlFor="nominal"
               >
                 Zakat Nominal
               </label>
               <div className="flex">
-                <span className="inline-flex items-center px-3 text-sm  rounded-l-md border border-r-0 bg-gray-300 border-black font-bold">
+                <span className="inline-flex items-center px-3 text-sm font-bold bg-gray-300 border border-r-0 border-black rounded-l-md">
                   Rp.
                 </span>
                 <input
@@ -128,10 +128,10 @@ export default function Form() {
               </p>
             </div>
 
-            <h3 className="block mb-2 text-sm font-medium text-gray-900 pt-2">
+            <h3 className="block pt-2 mb-2 text-sm font-medium text-gray-900">
               Title
             </h3>
-            <ul className="grid gap-6 w-full md:grid-cols-2">
+            <ul className="grid w-full gap-6 md:grid-cols-2">
               <li>
                 <input
                   type="radio"
@@ -144,7 +144,7 @@ export default function Form() {
                 />
                 <label
                   htmlFor="mister"
-                  className="inline-flex justify-between items-center px-2 py-1 w-full rounded-lg border cursor-pointer border-gray-700  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-slate-400 text-slate-300 bg-gray-800 hover:bg-gray-700"
+                  className="inline-flex items-center justify-between w-full px-2 py-1 bg-gray-800 border border-gray-700 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-slate-400 text-slate-300 hover:bg-gray-700"
                 >
                   <div className="block">
                     <div className="w-full text-lg font-semibold">Mr.</div>
@@ -163,7 +163,7 @@ export default function Form() {
                 />
                 <label
                   htmlFor="miss"
-                  className="inline-flex justify-between items-center px-2 py-1 w-full rounded-lg border cursor-pointer border-gray-700  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-slate-400 text-slate-300 bg-gray-800 hover:bg-gray-700"
+                  className="inline-flex items-center justify-between w-full px-2 py-1 bg-gray-800 border border-gray-700 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-slate-400 text-slate-300 hover:bg-gray-700"
                 >
                   <div className="block">
                     <div className="w-full text-lg font-semibold">Mrs.</div>
@@ -174,7 +174,7 @@ export default function Form() {
 
             <div>
               <label
-                className="block mb-2 text-sm font-medium text-gray-900 pt-2"
+                className="block pt-2 mb-2 text-sm font-medium text-gray-900"
                 htmlFor="name"
               >
                 Name
@@ -194,7 +194,7 @@ export default function Form() {
 
               <div>
                 <label
-                  className="block mb-2 text-sm font-medium text-gray-900 pt-2"
+                  className="block pt-2 mb-2 text-sm font-medium text-gray-900"
                   htmlFor="email"
                 >
                   Email
@@ -215,7 +215,7 @@ export default function Form() {
 
               <div>
                 <label
-                  className="block mb-2 text-sm font-medium text-gray-900 pt-2"
+                  className="block pt-2 mb-2 text-sm font-medium text-gray-900"
                   htmlFor="phone"
                 >
                   Phone
