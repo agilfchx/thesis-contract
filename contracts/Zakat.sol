@@ -44,8 +44,8 @@ contract Zakat {
         uint256 _amount,
         string memory _ipfsHash
     ) public {
-        bool status = checkPayment(msg.sender);
-        require(status == true, "Tunggu bulan berikutnya");
+        // bool status = checkPayment(msg.sender);
+        // require(status == true, "Tunggu bulan berikutnya");
         zvoice.push(
             ZakatIVC(
                 msg.sender,
