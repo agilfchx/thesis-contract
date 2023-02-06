@@ -20,7 +20,7 @@ export default async function handler(req, res) {
       const invoice = await i.createInvoice({
         externalID: extID,
         payerEmail: email,
-        description: 'Invoice zakat for ' + description,
+        description: description,
         amount: amount,
         successRedirectURL: 'http://localhost:3000/success',
       });

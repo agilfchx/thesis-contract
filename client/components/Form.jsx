@@ -32,25 +32,10 @@ export default function Form() {
     const check = await contract.methods.checkPayment(address).call();
     
     if (check) {
-      const pdf = await fetch('/api/pdf', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: extID,
-          name: title + name,
-          email,
-          phoneNumber: phone,
-          amount: zakatNominal,
-        }),
-      });
-      const res = await pdf.json();
-      const hash = res.path;
-      setLoading(false);
       const resp = await contract.methods
-        .store(extID, title + name, email, phone, zakatNominal, hash)
-        .send({ from: address, gas: 10000000 });
+      .store(extID, title + name, email, phone, zakatNominal)
+      .send({ from: address, gas: 10000000 });
+      setLoading(false);
       console.log(resp);
 
       const pay = await fetch('/api/invoice', {
