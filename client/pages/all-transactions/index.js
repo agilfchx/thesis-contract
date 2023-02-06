@@ -8,7 +8,7 @@ const AllTransactions = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const datas = await contract.methods.getAll().call();
+      const datas = await contract.methods.getZakat().call();
       setData(datas);
     };
     getData();

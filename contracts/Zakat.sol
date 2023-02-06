@@ -23,26 +23,29 @@ contract Zakat {
     }
 
     struct PG {
-        string extID;
-        string paymentMethod;
-        uint256 amount;
-        bool status;
-        string currency;
-        string paymentChannel;
-        string payerEmail;
-        uint256 date;
+        string _id;
+        string _extID;
+        string _paymentMethod;
+        bool _status;
+        uint256 _amount;
+        string _bankCode;
+        string _paidAt;
+        string _payerEmail;
+        string _description;
+        string _currency;
+        string _paymentChannel;
     }
 
     ZakatIVC[] public zvoice;
     PG[] public pg;
 
+    // Zakat Invoice Struct
     function store(
         string memory _zakatID,
         string memory _name,
         string memory _email,
         string memory _phoneNum,
-        uint256 _amount,
-        string memory _ipfsHash
+        uint256 _amount
     ) public {
         // bool status = checkPayment(msg.sender);
         // require(status == true, "Tunggu bulan berikutnya");
@@ -55,32 +58,97 @@ contract Zakat {
                 _phoneNum,
                 _amount,
                 block.timestamp,
-                true,
-                _ipfsHash
+                false,
+                ""
             )
         );
     }
 
+    function updateIPFS(string memory _zakatID, string memory _ipfsHash)
+        public
+    {
+        require(msg.sender == owner, "Anda tidak memiliki akses");
+        for (uint256 i = 0; i < zvoice.length; i++) {
+            if (
+                keccak256(abi.encodePacked(zvoice[i].zakatID)) ==
+                keccak256(abi.encodePacked(_zakatID))
+            ) {
+                zvoice[i].statusPayment = true;
+                zvoice[i].ipfsHash = _ipfsHash;
+                break;
+            }
+        }
+    }
+
+    function getZakat() public view returns (ZakatIVC[] memory) {
+        ZakatIVC[] memory result = new ZakatIVC[](zvoice.length);
+        for (uint256 i = 0; i < zvoice.length; i++) {
+            result[i] = zvoice[i];
+        }
+        return result;
+    }
+
+    function getHistory(address _walletAddress)
+        public
+        view
+        returns (
+            string[] memory,
+            uint256[] memory,
+            uint256[] memory,
+            string[] memory
+        )
+    {
+        uint256 count = 0;
+        for (uint256 j = 0; j < zvoice.length; j++) {
+            if (zvoice[j].walletAddress == _walletAddress) {
+                count++;
+            }
+        }
+        string[] memory _zakatID = new string[](count);
+        string[] memory _ipfsHash = new string[](count);
+        uint256[] memory _date = new uint256[](count);
+        uint256[] memory _amount = new uint256[](count);
+        uint256 i = 0;
+        for (uint256 j = 0; j < zvoice.length; j++) {
+            if (zvoice[j].walletAddress == _walletAddress) {
+                _zakatID[i] = zvoice[j].zakatID;
+                _date[i] = zvoice[j].date;
+                _amount[i] = zvoice[j].amount;
+                _ipfsHash[i] = zvoice[j].ipfsHash;
+                i++;
+            }
+        }
+        return (_zakatID, _date, _amount, _ipfsHash);
+    }
+
+    // Payment Gateway Struct
     function storePG(
+        string memory _id,
         string memory _extID,
         string memory _paymentMethod,
-        uint256 _amount,
         bool _status,
+        uint256 _amount,
+        string memory _bankCode,
+        string memory _paidAt,
+        string memory _payerEmail,
+        string memory _description,
         string memory _currency,
-        string memory _paymentChannel,
-        string memory _payerEmail
+        string memory _paymentChannel
     ) public {
         require(msg.sender == owner, "Anda tidak memiliki akses");
         pg.push(
             PG(
+                _id,
                 _extID,
                 _paymentMethod,
-                _amount,
                 _status,
-                _currency,
-                _paymentChannel,
+                _amount,
+                _bankCode,
+                _paidAt,
                 _payerEmail,
-                block.timestamp
+                _description,
+                _currency,
+                _paymentChannel
             )
         );
     }
@@ -93,6 +161,7 @@ contract Zakat {
         return result;
     }
 
+    // ETC
     function checkPayment(address _walletAddress) public view returns (bool) {
         uint256 lastPayment = 0;
         uint256 oneMonthInSeconds = 2592000; // 30 d x 24 h x 60 m x 60 s
@@ -119,52 +188,4 @@ contract Zakat {
         }
         return valid;
     }
-
-    function getAll() public view returns (ZakatIVC[] memory) {
-        ZakatIVC[] memory result = new ZakatIVC[](zvoice.length);
-        for (uint256 i = 0; i < zvoice.length; i++) {
-            result[i] = zvoice[i];
-        }
-        return result;
-    }
-
-    function getHistory(address _walletAddress)
-        public
-        view
-        returns (
-            string[] memory,
-            uint256[] memory,
-            uint256[] memory,
-            string[] memory
-        )
-    {
-        // require(msg.sender == _walletAddress, "Address yang dimasukkan tidak sesuai dengan address anda");
-        uint256 count = 0;
-        for (uint256 j = 0; j < zvoice.length; j++) {
-            if (zvoice[j].walletAddress == _walletAddress) {
-                count++;
-            }
-        }
-        string[] memory _zakatID = new string[](count);
-        string[] memory _ipfsHash = new string[](count);
-        uint256[] memory _date = new uint256[](count);
-        uint256[] memory _amount = new uint256[](count);
-        uint256 i = 0;
-        for (uint256 j = 0; j < zvoice.length; j++) {
-            if (zvoice[j].walletAddress == _walletAddress) {
-                _zakatID[i] = zvoice[j].zakatID;
-                _date[i] = zvoice[j].date;
-                _amount[i] = zvoice[j].amount;
-                _ipfsHash[i] = zvoice[j].ipfsHash;
-                i++;
-            }
-        }
-        return (_zakatID, _date, _amount, _ipfsHash);
-    }
 }
-
-// ZAKAT-5215, JAJANG, jajang@gmail.com, 08123457789, 2500, qjwkdjwqkdjqwkjw
-// ZAKAT-1634, JAJANG, jajang@gmail.com, 08123457789, 2500, qmkdmqkmdkqdasfa
-// ZAKAT-1212, JAJANG, jajang@gmail.com, 08123457789, 2500
-// ZAKAT-4123, MUSANG, musang@gmail.com, 08123457789, 5000, qkwdlwqdlqwmdqlwm
-// ZAKAT-7724, EKOR, ekor@gmail.com, 08123457789, 10000
