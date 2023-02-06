@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Modal from '../components/ModalValidation';
 import { create } from 'ipfs-http-client';
 import useContract from '../hooks/useContract';
+import Loader from '../components/Loader';
+
 const projectID = '2KAAMkXjgdYr2LJeBvpKHY2FPWA';
 const projectSecret = '0c74c468c320e5b47f56b71369518599';
 const authorization = 'Basic ' + btoa(projectID + ':' + projectSecret);
@@ -15,28 +17,30 @@ const ipfs = create({
 
 export default function CheckInvoice() {
   const contract = useContract();
+  const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
   const [ipfsHash, setIPFSHash] = useState('');
   const [valid, setValid] = useState(false);
   const verifyInvoice = async () => {
+    setLoading(true);
     const invoiceFile = document.getElementById('invoiceFile');
     const file = invoiceFile.files[0];
     const fileAdded = await ipfs.add(file);
     const hash = fileAdded.path;
     const verified = await contract.methods.verifyFile(hash).call();
+    setLoading(false);
     setModal(true);
     hash ? setIPFSHash(hash) : setIPFSHash('');
     verified ? setValid(true) : setValid(false);
-    console.log(hash);
   };
 
   return (
-    <div className="flex flex-col justify-center items-center my-60">
+    <div className="flex flex-col items-center justify-center my-60">
       <label className="text-4xl font-bold" htmlFor="invoiceFile">
         Check Invoice
       </label>
-      <div className="max-w-7xl px-4 py-6 mt-4 space-y-4 bg-white border border-gray-300 rounded-md shadow-md">
-        <div className="flex justify-center items-center">
+      <div className="px-4 py-6 mt-4 space-y-4 bg-white border border-gray-300 rounded-md shadow-md max-w-7xl">
+        <div className="flex items-center justify-center">
           <input
             className="block text-sm border rounded-lg cursor-pointer text-black focus:outline-noneborder-gray-600 placeholder-gray-400 w-96 p-2.5 bg-white border-gray-600 "
             id="invoiceFile"
@@ -62,6 +66,7 @@ export default function CheckInvoice() {
               ></path>
             </svg>
           </button>
+          <Loader loading={loading} />
           <Modal
             show={modal}
             onClose={() => setModal(false)}
