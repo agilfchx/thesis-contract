@@ -27,7 +27,7 @@ export default function Form() {
     const accounts = await web3.eth.getAccounts();
     const address = web3.utils.toChecksumAddress(accounts[0]);
     const check = await contract.methods.checkPayment(address).call();
-
+    
     if (check) {
       const pdf = await fetch('/api/pdf', {
         method: 'POST',
@@ -45,28 +45,25 @@ export default function Form() {
       const res = await pdf.json();
       const hash = res.path;
 
-      const gas = await contract.methods
-        .store(extID, title + name, email, phone, zakatNominal, hash)
-        .estimateGas();
       const resp = await contract.methods
         .store(extID, title + name, email, phone, zakatNominal, hash)
-        .send({ from: accounts[0], gas });
+        .send({ from: address, gas: 10000000 });
       console.log(resp);
 
-      // const pay = await fetch('/api/invoice', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({
-      //     extID,
-      //     email,
-      //     description: title + name,
-      //     amount: zakatNominal,
-      //   }),
-      // });
-      // const res = await pay.json();
-      // window.location.href = res.invoice.invoice_url;
+      const pay = await fetch('/api/invoice', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          extID,
+          email,
+          description: title + name,
+          amount: zakatNominal,
+        }),
+      });
+      const rez = await pay.json();
+      window.location.href = rez.invoice.invoice_url;
     } else {
       setModal(true);
     }
