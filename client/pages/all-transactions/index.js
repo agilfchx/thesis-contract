@@ -19,7 +19,7 @@ const AllTransactions = () => {
       <div className="flex justify-center m-4">
         <h1 className="text-4xl font-bold">All Transactions</h1>
       </div>
-      <div className="overflow-x-auto relative mx-36">
+      <div className="relative overflow-x-auto mx-36">
         <Table item={data} />
       </div>
     </div>
