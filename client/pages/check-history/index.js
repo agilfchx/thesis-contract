@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import TableHistory from '../../components/TableHistory';
 import useContract from '../../hooks/useContract';
+import Loader from '../../components/Loader';
 import Web3 from 'web3';
 
 export default function CheckTransactions() {
   const contract = useContract();
+  const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
   const [zakatID, setZakatID] = useState([]);
   const [date, setDate] = useState([]);
@@ -12,6 +14,7 @@ export default function CheckTransactions() {
   const [hash, setHash] = useState([]);
 
   const handleSearchHistory = async () => {
+    setLoading(true);
     const web3 = new Web3(Web3.givenProvider);
     const address = web3.utils.toChecksumAddress(search);
     const allData = await contract.methods.getHistory(address).call();
@@ -19,14 +22,15 @@ export default function CheckTransactions() {
     setDate(allData[1]);
     setAmount(allData[2]);
     setHash(allData[3]);
+    setLoading(false);
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <div className="flex items-center justify-center w-full text-center m-4">
+      <div className="flex items-center justify-center w-full m-4 text-center">
         <h1 className="text-4xl font-bold">Check History</h1>
       </div>
-      <div className="flex flex-col items-center justify-center  max-w-7xl px-4 py-6 space-y-4 bg-white border border-gray-300 rounded-md shadow-md">
+      <div className="flex flex-col items-center justify-center px-4 py-6 space-y-4 bg-white border border-gray-300 rounded-md shadow-md max-w-7xl">
         <div className="flex flex-col items-center justify-center w-full space-y-2">
           <div className="flex justify-center">
             <label htmlFor="simple-search" className="sr-only">
@@ -81,6 +85,7 @@ export default function CheckTransactions() {
         </div>
       </div>
       <TableHistory zakatID={zakatID} date={date} amount={amount} hash={hash} />
+      <Loader loading={loading} />
     </div>
   );
 }
