@@ -47,7 +47,7 @@ export default function Form() {
       });
       const res = await pdf.json();
       const hash = res.path;
-
+      setLoading(false);
       const resp = await contract.methods
         .store(extID, title + name, email, phone, zakatNominal, hash)
         .send({ from: address, gas: 10000000 });
@@ -66,7 +66,7 @@ export default function Form() {
         }),
       });
       const rez = await pay.json();
-      setLoading(false);
+      
       window.location.href = rez.invoice.invoice_url;
     } else {
       setLoading(false);
