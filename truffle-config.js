@@ -5,11 +5,17 @@
 
 module.exports = {
   networks: {
-    development: {
+    ganache: {
       host: '127.0.0.1',
       port: 7545,
       network_id: '*',
     },
+
+    geth: {
+      host: '192.168.0.105',
+      port: 8545,
+      network_id: '*',
+    }
   },
 
   // Set default mocha options here, use special reporters, etc.
