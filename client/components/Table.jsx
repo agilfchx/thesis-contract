@@ -14,21 +14,21 @@ export default function Table({ item }) {
 
   return (
     <table className="w-full text-sm text-left">
-      <thead className="text-xs uppercase bg-gray-800 text-white">
+      <thead className="text-xs text-white uppercase bg-gray-800">
         <tr>
-          <th scope="col" className="py-3 px-6">
+          <th scope="col" className="px-6 py-3">
             Address
           </th>
-          <th scope="col" className="py-3 px-6">
+          <th scope="col" className="px-6 py-3">
             Name
           </th>
-          <th scope="col" className="py-3 px-6">
+          <th scope="col" className="px-6 py-3">
             Nominal
           </th>
-          <th scope="col" className="py-3 px-6">
+          <th scope="col" className="px-6 py-3">
             Date
           </th>
-          <th scope="col" className="py-3 px-6">
+          <th scope="col" className="px-6 py-3">
             Invoice
           </th>
         </tr>
@@ -42,20 +42,20 @@ export default function Table({ item }) {
             } else {
               rowClass = 'border-b bg-slate-300 border-gray-700';
             }
-            return (
+            return data.statusPayment ? (
               <tr className={rowClass} key={idx}>
                 <th scope="row" className="px-6 font-medium">
                   {data.walletAddress}
                   {/* {data.walletAddress.slice(0, 9)}...
                   {data.walletAddress.slice(37, 42)} */}
                 </th>
-                <td className="py-4 px-6">{data.name}</td>
-                <td className="py-4 px-6">
+                <td className="px-6 py-4">{data.name}</td>
+                <td className="px-6 py-4">
                   Rp
                   {data.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
                 </td>
-                <td className="py-4 px-6">{convertUnixToDate(data.date)}</td>
-                <td className="py-4 px-6">
+                <td className="px-6 py-4">{convertUnixToDate(data.date)}</td>
+                <td className="px-6 py-4">
                   <a
                     href={`https://zakatpayment.infura-ipfs.io/ipfs/${data.ipfsHash}`}
                     target="_blank"
@@ -69,7 +69,7 @@ export default function Table({ item }) {
                   </a>
                 </td>
               </tr>
-            );
+            ) : null
           })}
       </tbody>
     </table>
