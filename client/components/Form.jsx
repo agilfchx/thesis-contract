@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import Modal from '../components/ModalError';
+import Loader from '../components/Loader';
 import useContract from '../hooks/useContract';
 import Web3 from 'web3';
 
@@ -16,6 +17,7 @@ export default function Form() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [loading, setLoading] = useState(false);
   const calculateZakat = (nominal) => {
     const zakat = nominal * 0.025;
     return zakat;
@@ -23,6 +25,7 @@ export default function Form() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const web3 = new Web3(window.ethereum);
     const accounts = await web3.eth.getAccounts();
     const address = web3.utils.toChecksumAddress(accounts[0]);
@@ -63,8 +66,10 @@ export default function Form() {
         }),
       });
       const rez = await pay.json();
+      setLoading(false);
       window.location.href = rez.invoice.invoice_url;
     } else {
+      setLoading(false);
       setModal(true);
     }
   };
@@ -240,6 +245,7 @@ export default function Form() {
             </button>
           </div>
         </form>
+        <Loader loading={loading} />
         <Modal show={modal} onClose={() => setModal(false)} />
       </div>
     </>
