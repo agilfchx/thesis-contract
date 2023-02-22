@@ -1,36 +1,36 @@
-import { useState } from 'react';
-import Modal from '../components/ModalValidation';
-import { create } from 'ipfs-http-client';
-import useContract from '../hooks/useContract';
-import Loader from '../components/Loader';
+import { useState } from "react";
+import Modal from "../components/ModalValidation";
+import { create } from "ipfs-http-client";
+import useOwner from "../hooks/useOwner";
+import Loader from "../components/Loader";
 
-const projectID = '2KAAMkXjgdYr2LJeBvpKHY2FPWA';
-const projectSecret = '0c74c468c320e5b47f56b71369518599';
-const authorization = 'Basic ' + btoa(projectID + ':' + projectSecret);
+const projectID = "2KAAMkXjgdYr2LJeBvpKHY2FPWA";
+const projectSecret = "0c74c468c320e5b47f56b71369518599";
+const authorization = "Basic " + btoa(projectID + ":" + projectSecret);
 
 const ipfs = create({
-  url: 'https://ipfs.infura.io:5001/api/v0',
+  url: "https://ipfs.infura.io:5001/api/v0",
   headers: {
     authorization,
   },
 });
 
 export default function CheckInvoice() {
-  const contract = useContract();
+  const contract = useOwner();
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
-  const [ipfsHash, setIPFSHash] = useState('');
+  const [ipfsHash, setIPFSHash] = useState("");
   const [valid, setValid] = useState(false);
   const verifyInvoice = async () => {
     setLoading(true);
-    const invoiceFile = document.getElementById('invoiceFile');
+    const invoiceFile = document.getElementById("invoiceFile");
     const file = invoiceFile.files[0];
     const fileAdded = await ipfs.add(file);
     const hash = fileAdded.path;
-    const verified = await contract.methods.verifyFile(hash).call();
+    const verified = await contract.verifyFile(hash);
     setLoading(false);
     setModal(true);
-    hash ? setIPFSHash(hash) : setIPFSHash('');
+    hash ? setIPFSHash(hash) : setIPFSHash("");
     verified ? setValid(true) : setValid(false);
   };
 
@@ -49,21 +49,18 @@ export default function CheckInvoice() {
           />
           <button
             className="p-2.5 ml-2 text-sm font-medium border focus:ring-gray-600 bg-gray-800 border-gray-700 text-white hover:bg-gray-700 rounded-full focus:ring-primary-300"
-            onClick={verifyInvoice}
-          >
+            onClick={verifyInvoice}>
             <svg
               className="w-5 h-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+              xmlns="http://www.w3.org/2000/svg">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              ></path>
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
           </button>
           <Loader loading={loading} />

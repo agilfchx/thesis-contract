@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import TableHistory from '../../components/TableHistory';
-import useContract from '../../hooks/useContract';
-import Loader from '../../components/Loader';
-import Web3 from 'web3';
+import { useState } from "react";
+import TableHistory from "../../components/TableHistory";
+import useOwner from "../../hooks/useOwner";
+import Loader from "../../components/Loader";
+import Web3 from "web3";
 
 export default function CheckTransactions() {
-  const contract = useContract();
+  const contract = useOwner();
   const [loading, setLoading] = useState(false);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [zakatID, setZakatID] = useState([]);
   const [date, setDate] = useState([]);
   const [amount, setAmount] = useState([]);
@@ -17,7 +17,7 @@ export default function CheckTransactions() {
     setLoading(true);
     const web3 = new Web3(Web3.givenProvider);
     const address = web3.utils.toChecksumAddress(search);
-    const allData = await contract.methods.getHistory(address).call();
+    const allData = await contract.getHistory(address);
     setZakatID(allData[0]);
     setDate(allData[1]);
     setAmount(allData[2]);
@@ -43,13 +43,11 @@ export default function CheckTransactions() {
                   className="w-5 h-5 text-gray-400"
                   fill="currentColor"
                   viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
+                  xmlns="http://www.w3.org/2000/svg">
                   <path
                     fillRule="evenodd"
                     d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                    clipRule="evenodd"
-                  ></path>
+                    clipRule="evenodd"></path>
                 </svg>
               </div>
               <input
@@ -63,21 +61,18 @@ export default function CheckTransactions() {
             </div>
             <button
               className="p-2.5 ml-2 text-sm font-medium border focus:ring-gray-600 bg-gray-800 border-gray-700 text-white hover:bg-gray-700 rounded-full focus:ring-primary-300 "
-              onClick={handleSearchHistory}
-            >
+              onClick={handleSearchHistory}>
               <svg
                 className="w-5 h-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
+                xmlns="http://www.w3.org/2000/svg">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                ></path>
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
               </svg>
               <span className="sr-only">Search</span>
             </button>
