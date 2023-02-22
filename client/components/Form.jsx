@@ -1,22 +1,23 @@
-import { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
-import Modal from '../components/ModalError';
-import Loader from '../components/Loader';
-import useContract from '../hooks/useContract';
-import Web3 from 'web3';
+import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
+import Modal from "../components/ModalError";
+import Loader from "../components/Loader";
+import useContract from "../hooks/useContract";
+import useOwner from "../hooks/useOwner";
+import Web3 from "web3";
 
 export default function Form() {
-  const contract = useContract();
+  const contract = useOwner();
   const [modal, setModal] = useState(false);
   const randomUID = Math.floor(Math.random() * 10000);
-  const extID = 'ZAKAT-' + randomUID;
+  const extID = "ZAKAT-" + randomUID;
   const [nominal, setNominal] = useState(0);
   const [zakatNominal, setZakatNominal] = useState(0);
-  const [title, setTitle] = useState('');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+  const [title, setTitle] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
   const calculateZakat = (nominal) => {
     const zakat = nominal * 0.025;
@@ -26,33 +27,42 @@ export default function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const web3 = new Web3(window.ethereum);
-    const accounts = await web3.eth.getAccounts();
-    const address = web3.utils.toChecksumAddress(accounts[0]);
-    const check = await contract.methods.checkPayment(address).call();
-    
-    if (check) {
-      const resp = await contract.methods
-      .store(extID, title + name, email, phone, zakatNominal)
-      .send({ from: address, gas: 10000000 });
+    // const web3 = new Web3(window.ethereum);
+    // const accounts = await web3.eth.getAccounts();
+    // const address = web3.utils.toChecksumAddress(accounts[0]);
+    // const check = await contract.methods.checkPayment(address).call();
+
+    if (true) {
+      const resp = await contract.store(
+        extID,
+        title + name,
+        email,
+        phone,
+        zakatNominal
+      );
       setLoading(false);
       console.log(resp);
+      // const resp = await contract.methods
+      //   .store(extID, title + name, email, phone, zakatNominal)
+      //   .send({ from: address, gas: 200000 });
+      // setLoading(false);
+      // console.log(resp);
 
-      const pay = await fetch('/api/invoice', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          extID,
-          email,
-          description: title + name,
-          amount: zakatNominal,
-        }),
-      });
-      const rez = await pay.json();
-      
-      window.location.href = rez.invoice.invoice_url;
+      // const pay = await fetch("/api/invoice", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     extID,
+      //     email,
+      //     description: title + name,
+      //     amount: zakatNominal,
+      //   }),
+      // });
+      // const rez = await pay.json();
+
+      // window.location.href = rez.invoice.invoice_url;
     } else {
       setLoading(false);
       setModal(true);
@@ -71,8 +81,7 @@ export default function Form() {
           <div>
             <label
               className="block mb-2 text-sm font-medium text-gray-900"
-              htmlFor="income"
-            >
+              htmlFor="income">
               Income
             </label>
             <div className="flex">
@@ -90,9 +99,8 @@ export default function Form() {
             <div>
               <label
                 className="block pt-2 mb-2 text-sm font-medium text-gray-900"
-                htmlFor="nominal"
-              >
-                Zakat Nominal
+                htmlFor="nominal">
+                Nominal
               </label>
               <div className="flex">
                 <span className="inline-flex items-center px-3 text-sm font-bold bg-gray-300 border border-r-0 border-black rounded-l-md">
@@ -104,7 +112,7 @@ export default function Form() {
                   disabled={true}
                   value={calculateZakat(nominal)
                     .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                 />
               </div>
             </div>
@@ -131,8 +139,7 @@ export default function Form() {
                 />
                 <label
                   htmlFor="mister"
-                  className="inline-flex items-center justify-between w-full px-2 py-1 bg-gray-800 border border-gray-700 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-slate-400 text-slate-300 hover:bg-gray-700"
-                >
+                  className="inline-flex items-center justify-between w-full px-2 py-1 bg-gray-800 border border-gray-700 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-slate-400 text-slate-300 hover:bg-gray-700">
                   <div className="block">
                     <div className="w-full text-lg font-semibold">Mr.</div>
                   </div>
@@ -150,8 +157,7 @@ export default function Form() {
                 />
                 <label
                   htmlFor="miss"
-                  className="inline-flex items-center justify-between w-full px-2 py-1 bg-gray-800 border border-gray-700 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-slate-400 text-slate-300 hover:bg-gray-700"
-                >
+                  className="inline-flex items-center justify-between w-full px-2 py-1 bg-gray-800 border border-gray-700 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-slate-400 text-slate-300 hover:bg-gray-700">
                   <div className="block">
                     <div className="w-full text-lg font-semibold">Mrs.</div>
                   </div>
@@ -162,8 +168,7 @@ export default function Form() {
             <div>
               <label
                 className="block pt-2 mb-2 text-sm font-medium text-gray-900"
-                htmlFor="name"
-              >
+                htmlFor="name">
                 Name
               </label>
               <div className="flex">
@@ -182,8 +187,7 @@ export default function Form() {
               <div>
                 <label
                   className="block pt-2 mb-2 text-sm font-medium text-gray-900"
-                  htmlFor="email"
-                >
+                  htmlFor="email">
                   Email
                 </label>
                 <div className="flex">
@@ -203,8 +207,7 @@ export default function Form() {
               <div>
                 <label
                   className="block pt-2 mb-2 text-sm font-medium text-gray-900"
-                  htmlFor="phone"
-                >
+                  htmlFor="phone">
                   Phone
                 </label>
                 <div className="flex">
@@ -224,8 +227,7 @@ export default function Form() {
 
             <button
               className="focus:ring-gray-600 bg-gray-800 border-gray-700 text-white hover:bg-gray-700 w-[436px] p-2.5 my-4 font-medium rounded-lg text-lg uppercase"
-              onClick={handleSubmit}
-            >
+              onClick={handleSubmit}>
               Pay
             </button>
           </div>

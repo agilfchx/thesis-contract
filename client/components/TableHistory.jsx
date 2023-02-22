@@ -1,62 +1,61 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
 
 export default function TableHistory({ zakatID, date, amount, hash }) {
   const convertUnixToDate = (unix) => {
     const date = new Date(unix * 1000);
-    const formattedDate = date.toLocaleDateString('en-US', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
+    const formattedDate = date.toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
     });
     return formattedDate;
   };
   return (
-    <div className="overflow-x-auto mt-8">
-      {zakatID.length > 0 &&
-        zakatID.map((data, idx) => {
-          let rowClass = '';
-          if (idx % 2 === 0) {
-            rowClass = 'bg-white border border-gray-400';
-          } else {
-            rowClass = 'border-b bg-slate-300 border-gray-700';
-          }
-          return (
-            <table className="w-full text-sm text-left" key={idx}>
-              <thead className="text-xs uppercase bg-gray-800 text-white">
-                <tr>
-                  <th scope="col" className="py-3 px-6">
-                    Zakat ID
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    Date
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    Nominal
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    Invoice
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
+    <div className="mt-8 overflow-x-auto">
+      <table className="w-full text-sm text-left">
+        <thead className="text-xs text-white uppercase bg-gray-800">
+          <tr>
+            <th scope="col" className="px-6 py-3">
+              Zakat ID
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Date
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Nominal
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Invoice
+            </th>
+          </tr>
+        </thead>
+        {zakatID.length > 0 &&
+          zakatID.map((data, idx) => {
+            let rowClass = "";
+            if (idx % 2 === 0) {
+              rowClass = "bg-white border border-gray-400";
+            } else {
+              rowClass = "border-b bg-slate-300 border-gray-700";
+            }
+            return (
+              <tbody key={idx}>
                 <tr className={rowClass}>
                   <th scope="row" className="px-6 font-medium">
                     {data}
                   </th>
-                  <td className="py-4 px-6">{convertUnixToDate(date[idx])}</td>
-                  <td className="py-4 px-6">
+                  <td className="px-6 py-4">{convertUnixToDate(date[idx])}</td>
+                  <td className="px-6 py-4">
                     Rp
                     {amount[idx]
                       .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                   </td>
-                  <td className="py-4 px-6">
+                  <td className="px-6 py-4">
                     <a
                       href={`https://zakatpayment.infura-ipfs.io/ipfs/${hash[idx]}`}
                       target="_blank"
-                      className="font-bold text-blue-600 hover:underline"
-                    >
+                      className="font-bold text-blue-600 hover:underline">
                       <FontAwesomeIcon
                         icon={faDownload}
                         className="text-blue-600"
@@ -65,9 +64,9 @@ export default function TableHistory({ zakatID, date, amount, hash }) {
                   </td>
                 </tr>
               </tbody>
-            </table>
-          );
-        })}
+            );
+          })}
+      </table>
     </div>
   );
 }

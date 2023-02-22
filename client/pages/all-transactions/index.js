@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
-import Table from '../../components/Table';
-import useContract from '../../hooks/useContract';
+import { useEffect, useState } from "react";
+import Table from "../../components/Table";
+import useOwner from "../../hooks/useOwner";
 
 const AllTransactions = () => {
-  const contract = useContract();
+  const contract = useOwner();
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
-      const datas = await contract.methods.getZakat().call();
+      const datas = await contract.getZakat();
       setData(datas);
     };
     getData();
@@ -19,7 +19,7 @@ const AllTransactions = () => {
       <div className="flex justify-center m-4">
         <h1 className="text-4xl font-bold">All Transactions</h1>
       </div>
-      <div className="relative overflow-x-auto mx-36">
+      <div className="relative overflow-x-auto mx-96">
         <Table item={data} />
       </div>
     </div>
