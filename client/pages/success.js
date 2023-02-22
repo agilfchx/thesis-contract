@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import useContract from "../hooks/useContract";
+import useOwner from "../hooks/useOwner";
 
 export default function Success() {
   const [data, setData] = useState([]);
-  const contract = useContract();
+  const contract = useOwner();
 
   useEffect(() => {
     const initContract = async () => {
-      const datas = await contract.methods.getPG().call();
+      const datas = await contract.getPG();
       setData(datas);
     };
     initContract();

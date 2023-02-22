@@ -3,9 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../components/ModalError";
 import Loader from "../components/Loader";
-import useContract from "../hooks/useContract";
 import useOwner from "../hooks/useOwner";
-import Web3 from "web3";
 
 export default function Form() {
   const contract = useOwner();
