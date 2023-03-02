@@ -42,7 +42,7 @@ export default async function Callback(req, res) {
         }
         try {
           const contract = useOwner();
-          await contract.storePG(
+          await contract.storePaymentGatewayRecord(
             resBody.id,
             resBody.external_id,
             resBody.payment_method,
@@ -99,7 +99,8 @@ export default async function Callback(req, res) {
                       console.log(fileAdded);
                       await contract.updateIPFS(
                         resBody.external_id,
-                        fileAdded.path
+                        fileAdded.path,
+                        resBody.id
                       );
                     } catch (err) {
                       res.status(400).send({ error: err });

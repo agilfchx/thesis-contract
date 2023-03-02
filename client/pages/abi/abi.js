@@ -1,458 +1,428 @@
 export const Zakat = [
   {
-    "inputs": [],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
+    inputs: [],
+    stateMutability: "nonpayable",
+    type: "constructor",
   },
   {
-    "inputs": [
+    inputs: [
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
     ],
-    "name": "pg",
-    "outputs": [
+    name: "pg",
+    outputs: [
       {
-        "internalType": "string",
-        "name": "_id",
-        "type": "string"
+        internalType: "string",
+        name: "id",
+        type: "string",
       },
       {
-        "internalType": "string",
-        "name": "_extID",
-        "type": "string"
+        internalType: "string",
+        name: "extID",
+        type: "string",
       },
       {
-        "internalType": "string",
-        "name": "_paymentMethod",
-        "type": "string"
+        internalType: "string",
+        name: "paymentMethod",
+        type: "string",
       },
       {
-        "internalType": "bool",
-        "name": "_status",
-        "type": "bool"
+        internalType: "bool",
+        name: "status",
+        type: "bool",
       },
       {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
       },
       {
-        "internalType": "string",
-        "name": "_bankCode",
-        "type": "string"
+        internalType: "string",
+        name: "bankCode",
+        type: "string",
       },
       {
-        "internalType": "string",
-        "name": "_paidAt",
-        "type": "string"
+        internalType: "string",
+        name: "paidAt",
+        type: "string",
       },
       {
-        "internalType": "string",
-        "name": "_payerEmail",
-        "type": "string"
+        internalType: "string",
+        name: "payerEmail",
+        type: "string",
       },
       {
-        "internalType": "string",
-        "name": "_description",
-        "type": "string"
+        internalType: "string",
+        name: "description",
+        type: "string",
       },
       {
-        "internalType": "string",
-        "name": "_currency",
-        "type": "string"
+        internalType: "string",
+        name: "currency",
+        type: "string",
       },
       {
-        "internalType": "string",
-        "name": "_paymentChannel",
-        "type": "string"
-      }
+        internalType: "string",
+        name: "paymentChannel",
+        type: "string",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    stateMutability: "view",
+    type: "function",
+    constant: true,
   },
   {
-    "inputs": [
+    inputs: [
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
     ],
-    "name": "zvoice",
-    "outputs": [
+    name: "transaction",
+    outputs: [
       {
-        "internalType": "address",
-        "name": "walletAddress",
-        "type": "address"
+        internalType: "string",
+        name: "transactionId",
+        type: "string",
       },
       {
-        "internalType": "string",
-        "name": "zakatID",
-        "type": "string"
+        internalType: "string",
+        name: "recordID",
+        type: "string",
       },
       {
-        "internalType": "string",
-        "name": "name",
-        "type": "string"
+        internalType: "string",
+        name: "name",
+        type: "string",
       },
       {
-        "internalType": "string",
-        "name": "email",
-        "type": "string"
+        internalType: "string",
+        name: "email",
+        type: "string",
       },
       {
-        "internalType": "string",
-        "name": "phoneNum",
-        "type": "string"
+        internalType: "string",
+        name: "phone",
+        type: "string",
       },
       {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
       },
       {
-        "internalType": "uint256",
-        "name": "date",
-        "type": "uint256"
+        internalType: "uint256",
+        name: "date",
+        type: "uint256",
       },
       {
-        "internalType": "bool",
-        "name": "statusPayment",
-        "type": "bool"
+        internalType: "bool",
+        name: "statusPayment",
+        type: "bool",
       },
       {
-        "internalType": "string",
-        "name": "ipfsHash",
-        "type": "string"
-      }
+        internalType: "string",
+        name: "ipfsHash",
+        type: "string",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    stateMutability: "view",
+    type: "function",
+    constant: true,
   },
   {
-    "inputs": [
+    inputs: [
       {
-        "internalType": "string",
-        "name": "_zakatID",
-        "type": "string"
+        internalType: "string",
+        name: "_txId",
+        type: "string",
       },
       {
-        "internalType": "string",
-        "name": "_name",
-        "type": "string"
+        internalType: "string",
+        name: "_name",
+        type: "string",
       },
       {
-        "internalType": "string",
-        "name": "_email",
-        "type": "string"
+        internalType: "string",
+        name: "_email",
+        type: "string",
       },
       {
-        "internalType": "string",
-        "name": "_phoneNum",
-        "type": "string"
+        internalType: "string",
+        name: "_phone",
+        type: "string",
       },
       {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
-      }
+        internalType: "uint256",
+        name: "_amount",
+        type: "uint256",
+      },
     ],
-    "name": "store",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    name: "storeTransaction",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
   },
   {
-    "inputs": [
+    inputs: [
       {
-        "internalType": "string",
-        "name": "_zakatID",
-        "type": "string"
+        internalType: "string",
+        name: "_id",
+        type: "string",
       },
       {
-        "internalType": "string",
-        "name": "_ipfsHash",
-        "type": "string"
-      }
+        internalType: "string",
+        name: "_extID",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_paymentMethod",
+        type: "string",
+      },
+      {
+        internalType: "bool",
+        name: "_status",
+        type: "bool",
+      },
+      {
+        internalType: "uint256",
+        name: "_amount",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "_bankCode",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_paidAt",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_payerEmail",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_description",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_currency",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_paymentChannel",
+        type: "string",
+      },
     ],
-    "name": "updateIPFS",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    name: "storePaymentGatewayRecord",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "getZakat",
-    "outputs": [
+    inputs: [],
+    name: "getTransaction",
+    outputs: [
       {
-        "components": [
+        components: [
           {
-            "internalType": "address",
-            "name": "walletAddress",
-            "type": "address"
+            internalType: "string",
+            name: "transactionId",
+            type: "string",
           },
           {
-            "internalType": "string",
-            "name": "zakatID",
-            "type": "string"
+            internalType: "string",
+            name: "recordID",
+            type: "string",
           },
           {
-            "internalType": "string",
-            "name": "name",
-            "type": "string"
+            internalType: "string",
+            name: "name",
+            type: "string",
           },
           {
-            "internalType": "string",
-            "name": "email",
-            "type": "string"
+            internalType: "string",
+            name: "email",
+            type: "string",
           },
           {
-            "internalType": "string",
-            "name": "phoneNum",
-            "type": "string"
+            internalType: "string",
+            name: "phone",
+            type: "string",
           },
           {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
+            internalType: "uint256",
+            name: "amount",
+            type: "uint256",
           },
           {
-            "internalType": "uint256",
-            "name": "date",
-            "type": "uint256"
+            internalType: "uint256",
+            name: "date",
+            type: "uint256",
           },
           {
-            "internalType": "bool",
-            "name": "statusPayment",
-            "type": "bool"
+            internalType: "bool",
+            name: "statusPayment",
+            type: "bool",
           },
           {
-            "internalType": "string",
-            "name": "ipfsHash",
-            "type": "string"
-          }
+            internalType: "string",
+            name: "ipfsHash",
+            type: "string",
+          },
         ],
-        "internalType": "struct Zakat.ZakatIVC[]",
-        "name": "",
-        "type": "tuple[]"
-      }
+        internalType: "struct TransactionRecord.Transaction[]",
+        name: "",
+        type: "tuple[]",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    stateMutability: "view",
+    type: "function",
+    constant: true,
   },
   {
-    "inputs": [
+    inputs: [],
+    name: "getPaymentGatewayRecord",
+    outputs: [
       {
-        "internalType": "address",
-        "name": "_walletAddress",
-        "type": "address"
-      }
-    ],
-    "name": "getHistory",
-    "outputs": [
-      {
-        "internalType": "string[]",
-        "name": "",
-        "type": "string[]"
-      },
-      {
-        "internalType": "uint256[]",
-        "name": "",
-        "type": "uint256[]"
-      },
-      {
-        "internalType": "uint256[]",
-        "name": "",
-        "type": "uint256[]"
-      },
-      {
-        "internalType": "string[]",
-        "name": "",
-        "type": "string[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function",
-    "constant": true
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "_id",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_extID",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_paymentMethod",
-        "type": "string"
-      },
-      {
-        "internalType": "bool",
-        "name": "_status",
-        "type": "bool"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_amount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_bankCode",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_paidAt",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_payerEmail",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_description",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_currency",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_paymentChannel",
-        "type": "string"
-      }
-    ],
-    "name": "storePG",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getPG",
-    "outputs": [
-      {
-        "components": [
+        components: [
           {
-            "internalType": "string",
-            "name": "_id",
-            "type": "string"
+            internalType: "string",
+            name: "id",
+            type: "string",
           },
           {
-            "internalType": "string",
-            "name": "_extID",
-            "type": "string"
+            internalType: "string",
+            name: "extID",
+            type: "string",
           },
           {
-            "internalType": "string",
-            "name": "_paymentMethod",
-            "type": "string"
+            internalType: "string",
+            name: "paymentMethod",
+            type: "string",
           },
           {
-            "internalType": "bool",
-            "name": "_status",
-            "type": "bool"
+            internalType: "bool",
+            name: "status",
+            type: "bool",
           },
           {
-            "internalType": "uint256",
-            "name": "_amount",
-            "type": "uint256"
+            internalType: "uint256",
+            name: "amount",
+            type: "uint256",
           },
           {
-            "internalType": "string",
-            "name": "_bankCode",
-            "type": "string"
+            internalType: "string",
+            name: "bankCode",
+            type: "string",
           },
           {
-            "internalType": "string",
-            "name": "_paidAt",
-            "type": "string"
+            internalType: "string",
+            name: "paidAt",
+            type: "string",
           },
           {
-            "internalType": "string",
-            "name": "_payerEmail",
-            "type": "string"
+            internalType: "string",
+            name: "payerEmail",
+            type: "string",
           },
           {
-            "internalType": "string",
-            "name": "_description",
-            "type": "string"
+            internalType: "string",
+            name: "description",
+            type: "string",
           },
           {
-            "internalType": "string",
-            "name": "_currency",
-            "type": "string"
+            internalType: "string",
+            name: "currency",
+            type: "string",
           },
           {
-            "internalType": "string",
-            "name": "_paymentChannel",
-            "type": "string"
-          }
+            internalType: "string",
+            name: "paymentChannel",
+            type: "string",
+          },
         ],
-        "internalType": "struct Zakat.PG[]",
-        "name": "",
-        "type": "tuple[]"
-      }
+        internalType: "struct TransactionRecord.PaymentGateway[]",
+        name: "",
+        type: "tuple[]",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    stateMutability: "view",
+    type: "function",
+    constant: true,
   },
   {
-    "inputs": [
+    inputs: [
       {
-        "internalType": "address",
-        "name": "_walletAddress",
-        "type": "address"
-      }
-    ],
-    "name": "checkPayment",
-    "outputs": [
+        internalType: "string",
+        name: "_txID",
+        type: "string",
+      },
       {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
+        internalType: "string",
+        name: "_ipfsHash",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_recordID",
+        type: "string",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function",
-    "constant": true
+    name: "updateIPFS",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
   },
   {
-    "inputs": [
+    inputs: [
       {
-        "internalType": "string",
-        "name": "_ipfsHash",
-        "type": "string"
-      }
+        internalType: "string",
+        name: "_ipfsHash",
+        type: "string",
+      },
     ],
-    "name": "verifyFile",
-    "outputs": [
+    name: "verifyFile",
+    outputs: [
       {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function",
-    "constant": true
-  }
+    stateMutability: "view",
+    type: "function",
+    constant: true,
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_id",
+        type: "string",
+      },
+    ],
+    name: "verifyID",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+    constant: true,
+  },
 ];

@@ -2,33 +2,27 @@ import { useState } from "react";
 import TableHistory from "../../components/TableHistory";
 import useOwner from "../../hooks/useOwner";
 import Loader from "../../components/Loader";
-import Web3 from "web3";
+import Modal from "../../components/ModalTransaction";
 
 export default function CheckTransactions() {
   const contract = useOwner();
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
-  const [zakatID, setZakatID] = useState([]);
-  const [date, setDate] = useState([]);
-  const [amount, setAmount] = useState([]);
-  const [hash, setHash] = useState([]);
+  const [valid, setValid] = useState(false);
+  const [modal, setModal] = useState(false);
 
   const handleSearchHistory = async () => {
     setLoading(true);
-    const web3 = new Web3(Web3.givenProvider);
-    const address = web3.utils.toChecksumAddress(search);
-    const allData = await contract.getHistory(address);
-    setZakatID(allData[0]);
-    setDate(allData[1]);
-    setAmount(allData[2]);
-    setHash(allData[3]);
+    const validation = await contract.verifyID(search);
+    setValid(validation);
+    setModal(true);
     setLoading(false);
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <div className="flex items-center justify-center w-full m-4 text-center">
-        <h1 className="text-4xl font-bold">Check History</h1>
+        <h1 className="text-4xl font-bold">Check Transaction ID</h1>
       </div>
       <div className="flex flex-col items-center justify-center px-4 py-6 space-y-4 bg-white border border-gray-300 rounded-md shadow-md max-w-7xl">
         <div className="flex flex-col items-center justify-center w-full space-y-2">
@@ -79,8 +73,8 @@ export default function CheckTransactions() {
           </div>
         </div>
       </div>
-      <TableHistory zakatID={zakatID} date={date} amount={amount} hash={hash} />
       <Loader loading={loading} />
+      <Modal show={modal} onClose={() => setModal(false)} valid={valid} />
     </div>
   );
 }

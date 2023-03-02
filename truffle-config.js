@@ -6,16 +6,16 @@
 module.exports = {
   networks: {
     ganache: {
-      host: '127.0.0.1',
+      host: "127.0.0.1",
       port: 7545,
-      network_id: '*',
+      network_id: "*",
     },
 
     geth: {
-      host: '192.168.0.105',
+      host: "192.168.0.124",
       port: 8545,
-      network_id: '*',
-    }
+      network_id: "*",
+    },
   },
 
   // Set default mocha options here, use special reporters, etc.
@@ -26,7 +26,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: '0.8.17', // Fetch exact version from solc-bin (default: truffle's version)
+      version: "0.8.17", // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       // settings: {          // See the solidity docs for advice about optimization and evmVersion
       //  optimizer: {

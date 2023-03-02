@@ -8,10 +8,11 @@ const AllTransactions = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const datas = await contract.getZakat();
+      const datas = await contract.getTransaction();
       setData(datas);
     };
     getData();
+    console.log(data);
   }, [contract]);
 
   return (

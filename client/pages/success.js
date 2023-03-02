@@ -9,7 +9,7 @@ export default function Success() {
 
   useEffect(() => {
     const initContract = async () => {
-      const datas = await contract.getPG();
+      const datas = await contract.getPaymentGatewayRecord();
       setData(datas);
     };
     initContract();

@@ -9,7 +9,7 @@ export default function Form() {
   const contract = useOwner();
   const [modal, setModal] = useState(false);
   const randomUID = Math.floor(Math.random() * 10000);
-  const extID = "ZAKAT-" + randomUID;
+  const extID = "PAYMENT-" + randomUID;
   const [nominal, setNominal] = useState(0);
   const [zakatNominal, setZakatNominal] = useState(0);
   const [title, setTitle] = useState("");
@@ -22,49 +22,56 @@ export default function Form() {
     return zakat;
   };
 
+  const len = (str) => {
+    return new Blob([str]).size;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    // const web3 = new Web3(window.ethereum);
-    // const accounts = await web3.eth.getAccounts();
-    // const address = web3.utils.toChecksumAddress(accounts[0]);
-    // const check = await contract.methods.checkPayment(address).call();
+    // console.log("Bytes ExtID: ", len(extID));
+    // console.log("Bytes Title + Name: ", len(title + name));
+    // console.log("Bytes Email: ", len(email));
+    // console.log("Bytes Phone: ", len(phone));
+    // console.log("Bytes Zakat Nominal: ", len(zakatNominal));
+    console.log(
+      "Total Bytes: ",
+      len(extID) +
+        len(title + name) +
+        len(email) +
+        len(phone) +
+        len(zakatNominal)
+    );
+    const resp = await contract.storeTransaction(
+      extID,
+      title + name,
+      email,
+      phone,
+      zakatNominal
+    );
+    setLoading(false);
+    // console.log(resp);
+    // const resp = await contract.methods
+    //   .store(extID, title + name, email, phone, zakatNominal)
+    //   .send({ from: address, gas: 200000 });
+    // setLoading(false);
+    // console.log(resp);
 
-    if (true) {
-      const resp = await contract.store(
-        extID,
-        title + name,
-        email,
-        phone,
-        zakatNominal
-      );
-      setLoading(false);
-      console.log(resp);
-      // const resp = await contract.methods
-      //   .store(extID, title + name, email, phone, zakatNominal)
-      //   .send({ from: address, gas: 200000 });
-      // setLoading(false);
-      // console.log(resp);
+    // const pay = await fetch("/api/invoice", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     extID,
+    //     email,
+    //     description: title + name,
+    //     amount: zakatNominal,
+    //   }),
+    // });
+    // const rez = await pay.json();
 
-      // const pay = await fetch("/api/invoice", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     extID,
-      //     email,
-      //     description: title + name,
-      //     amount: zakatNominal,
-      //   }),
-      // });
-      // const rez = await pay.json();
-
-      // window.location.href = rez.invoice.invoice_url;
-    } else {
-      setLoading(false);
-      setModal(true);
-    }
+    // window.location.href = rez.invoice.invoice_url;
   };
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 
-export default function TableHistory({ zakatID, date, amount, hash }) {
+export default function TableHistory({ txID, date, amount, hash }) {
   const convertUnixToDate = (unix) => {
     const date = new Date(unix * 1000);
     const formattedDate = date.toLocaleDateString("en-US", {
@@ -17,7 +17,7 @@ export default function TableHistory({ zakatID, date, amount, hash }) {
         <thead className="text-xs text-white uppercase bg-gray-800">
           <tr>
             <th scope="col" className="px-6 py-3">
-              Zakat ID
+              Transaction ID
             </th>
             <th scope="col" className="px-6 py-3">
               Date
@@ -30,8 +30,8 @@ export default function TableHistory({ zakatID, date, amount, hash }) {
             </th>
           </tr>
         </thead>
-        {zakatID.length > 0 &&
-          zakatID.map((data, idx) => {
+        {txID.length > 0 &&
+          txID.map((data, idx) => {
             let rowClass = "";
             if (idx % 2 === 0) {
               rowClass = "bg-white border border-gray-400";

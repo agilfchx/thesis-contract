@@ -6,7 +6,7 @@ const ownerPK =
 
 const useOwner = () => {
   const rpcUrl = "HTTP://192.168.0.124:8545";
-  const contractAddress = "0x4330413b93aF70228B8519B7a1B7574834c0b158"; // Change this to deployed contract address
+  const contractAddress = "0xd890eFc9FcF5D5989D6D95fA881e982D22D2d082"; // Change this to deployed contract address
 
   const customHttpProvider = new ethers.providers.JsonRpcProvider(rpcUrl);
   // Konfirmasi Transaksi oleh wallet / Signers

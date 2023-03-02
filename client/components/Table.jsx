@@ -17,6 +17,9 @@ export default function Table({ item }) {
       <thead className="text-xs text-white uppercase bg-gray-800">
         <tr>
           <th scope="col" className="px-6 py-3">
+            Transaction ID
+          </th>
+          <th scope="col" className="px-6 py-3">
             Name
           </th>
           <th scope="col" className="px-6 py-3">
@@ -41,6 +44,7 @@ export default function Table({ item }) {
             }
             return (
               <tr className={rowClass} key={idx}>
+                <td className="px-6 py-4">{data.recordID}</td>
                 <td className="px-6 py-4">{data.name}</td>
                 <td className="px-6 py-4">
                   Rp

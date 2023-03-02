@@ -23,7 +23,7 @@ const Navbar = () => {
               <Link
                 href="/payzakat"
                 className="py-2 pl-3 pr-4 text-gray-400 md:p-0 hover:text-white">
-                Pay Zakat
+                Pay Transaction
               </Link>
             </li>
             <li>
@@ -37,7 +37,7 @@ const Navbar = () => {
               <Link
                 href="/check-history"
                 className="py-2 pl-3 pr-4 text-gray-400 md:p-0 hover:text-white">
-                Check History
+                Check Transaction
               </Link>
             </li>
             <li>
